@@ -1,6 +1,7 @@
 const authController = require("../controllers/authController.js");
 const Router = require("express");
 const { check } = require("express-validator");
+const checkAuth = require("../middleware/checkAuth.js");
 
 const router = new Router();
 
@@ -15,6 +16,6 @@ router.post(
   authController.registration
 );
 router.post("/login", authController.login);
-router.get("/users", authController.getUsers);
+router.get("/verify", checkAuth,authController.authMe);
 
 module.exports = router;

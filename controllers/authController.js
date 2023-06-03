@@ -58,9 +58,15 @@ class authController {
     }
   }
 
-  async getUsers(req, res) {
+  async authMe(req, res) {
+    const userId = req.userId;
+    console.log(userId)
     try {
-      res.json("server");
+      const user = await User.findById(userId);
+      if (user) {
+        return res.json({ success: true });
+      }
+      res.status(400).json({message:'Нет доступа'});
     } catch (e) {
       console.log(e.message);
     }
