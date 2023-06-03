@@ -20,7 +20,9 @@ class authController {
       const { login, password } = req.body;
       const candidate = await User.findOne({ login });
       if (candidate) {
-        return res.status(400).json({ message: "Ошибка регистрации" });
+        return res
+          .status(400)
+          .json({ message: "Пользователь с таким логином уже существует" });
       }
       const hashPassword = bcrypt.hashSync(password, 7);
       const user = new User({ login, password: hashPassword, clients: [] });
