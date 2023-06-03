@@ -9,3 +9,5 @@ router.get("/:id", checkAuth, clientController.getClient);
 router.post("/new", checkAuth, clientController.createClient);
 router.put("/:id", checkAuth, clientController.updateClient);
 router.delete("/:id", checkAuth, clientController.deleteClient);
+
+module.exports = router
