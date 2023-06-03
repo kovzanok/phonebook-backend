@@ -28,7 +28,7 @@ class clientController {
 
   async createClient(req, res) {
     try {
-      const id = req.userId;
+      const userId = req.userId;
 
       const doc = new ClientModel({
         name: req.body.name,
@@ -38,7 +38,7 @@ class clientController {
       });
 
       const client = await doc.save();
-      const user = await UserModel.findById(id);
+      const user = await UserModel.findById(userId);
       user.clients.push(client._id);
       await user.save();
 
