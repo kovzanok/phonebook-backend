@@ -5,7 +5,7 @@ module.exports = function checkAuth(req, res, next) {
   if (token) {
     try {
       const decoded = jwt.verify(token, "secret123");
-      req.userId = decoded._id;
+      req.userId = decoded.id;
       next();
     } catch (e) {
       return res.status(403).json({
