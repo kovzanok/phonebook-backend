@@ -38,7 +38,6 @@ class authController {
   async login(req, res) {
     try {
       const { login, password } = req.body;
-      console.log(login);
       const user = await User.findOne({ login });
       if (!user) {
         return res
@@ -60,7 +59,6 @@ class authController {
 
   async authMe(req, res) {
     const userId = req.userId;
-    console.log(userId);
     try {
       const user = await User.findById(userId);
       if (user) {
