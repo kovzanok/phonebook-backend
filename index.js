@@ -13,7 +13,9 @@ app.use("/clients", clientsRouter);
 const start = () => {
   try {
     app.listen(PORT, async () => {
-      await mongoose.connect('mongodb+srv://phonebookuser:phonebookpassword@cluster0.eqsxfo6.mongodb.net/?retryWrites=true&w=majority')
+      await mongoose.connect(
+        "mongodb+srv://phonebookuser:phonebookpassword@cluster0.eqsxfo6.mongodb.net/phonebook?retryWrites=true&w=majority"
+      );
       console.log(`Server is running on port ${PORT}`);
     });
   } catch (e) {
@@ -21,4 +23,4 @@ const start = () => {
   }
 };
 
-start(); 
+start();
