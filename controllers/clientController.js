@@ -8,7 +8,21 @@ class clientController {
     res.json(user.clients);
   }
 
-  async getClient(req,res) {}
+  async getClient(req, res) {
+    try {
+      const id = req.userId;
+      const clientId = req.params.id;
+
+      const user = await UserModel.findById(id).populate({
+        path: "clients",
+        id: { $eq: clientId },
+      });
+      const client = user.clients[0];
+      res.json(client);
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
 
   async createClient(req, res) {}
 
