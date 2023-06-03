@@ -1,14 +1,15 @@
 const express = require("express");
 const mongoose = require('mongoose');
-const authRouter=require('./routers/authRouter.js')
-
+const authRouter = require("./routers/authRouter.js");
+const clientsRouter = require("./routers/clientsRouter.js");
 
 const PORT = 3000;
 
 const app = express();
 
 app.use(express.json());
-app.use('/auth',authRouter)
+app.use("/auth", authRouter);
+app.use("/clients", clientsRouter);
 const start = () => {
   try {
     app.listen(PORT, async () => {
