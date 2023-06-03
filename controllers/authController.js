@@ -25,9 +25,10 @@ class authController {
           .json({ message: "Пользователь с таким логином уже существует" });
       }
       const hashPassword = bcrypt.hashSync(password, 7);
-      const user = new User({ login, password: hashPassword, clients: [] });
-      await user.save();
-      return res.json({ message: "Регистрация прошла успешно" });
+      const userDoc = new User({ login, password: hashPassword, clients: [] });
+      const user = await userDoc.save();
+      const token = genrateAccessToken(user._id);
+      return res.json({ token });
     } catch (e) {
       console.log(e.message);
       res.status(400).json({ message: "Ошибка регистрации" });
