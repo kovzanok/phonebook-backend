@@ -51,7 +51,7 @@ class authController {
       }
 
       const token = genrateAccessToken(user._id);
-      return res.json({token})
+      res.json({ token });
     } catch (e) {
       console.log(e.message);
       res.status(400).json({ message: "Ошибка авторизации" });
