@@ -48,7 +48,27 @@ class clientController {
     }
   }
 
-  async updateClient(req, res) {}
+  async updateClient(req, res) {
+    try {
+      const clientId = req.params.id;
+
+      const client = await ClientModel.findOneAndReplace(
+        { _id: clientId },
+        {
+          name: req.body.name,
+          substations: req.body.substations,
+          people: req.body.people,
+          contacts: req.body.contacts,
+        },
+        {
+          returnDocument: "after",
+        }
+      );
+      res.json(client);
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
 
   async deleteClient(req,res) {}
 }
