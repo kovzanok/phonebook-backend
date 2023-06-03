@@ -28,7 +28,7 @@ class authController {
       const userDoc = new User({ login, password: hashPassword, clients: [] });
       const user = await userDoc.save();
       const token = genrateAccessToken(user._id);
-      return res.json({ token });
+      return res.json({ token, userLogin: user.login });
     } catch (e) {
       console.log(e.message);
       res.status(400).json({ message: "Ошибка регистрации" });
@@ -38,7 +38,7 @@ class authController {
   async login(req, res) {
     try {
       const { login, password } = req.body;
-      console.log(login)
+      console.log(login);
       const user = await User.findOne({ login });
       if (!user) {
         return res
@@ -51,7 +51,7 @@ class authController {
       }
 
       const token = genrateAccessToken(user._id);
-      res.json({ token });
+      res.json({ token, userLogin: user.login });
     } catch (e) {
       console.log(e.message);
       res.status(400).json({ message: "Ошибка авторизации" });
@@ -60,13 +60,13 @@ class authController {
 
   async authMe(req, res) {
     const userId = req.userId;
-    console.log(userId)
+    console.log(userId);
     try {
       const user = await User.findById(userId);
       if (user) {
-        return res.json({ success: true });
+        return res.json({ login: user.login });
       }
-      res.status(400).json({message:'Нет доступа'});
+      res.status(400).json({ message: "Нет доступа" });
     } catch (e) {
       console.log(e.message);
     }
