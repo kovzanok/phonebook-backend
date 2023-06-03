@@ -10,13 +10,15 @@ class clientController {
 
   async getClient(req, res) {
     try {
-      const id = req.userId;
+      const userId = req.userId;
       const clientId = req.params.id;
 
-      const user = await UserModel.findById(id).populate({
+      const user = await UserModel.findById(userId)
+        .populate({
         path: "clients",
         id: { $eq: clientId },
-      });
+        })
+        .exec();
       const client = user.clients[0];
       res.json(client);
     } catch (e) {
