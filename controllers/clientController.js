@@ -16,10 +16,11 @@ class clientController {
       const user = await UserModel.findById(userId)
         .populate({
           path: "clients",
-          id: { $eq: clientId },
         })
         .exec();
-      const client = user.clients[0];
+      const client = user.clients.find(
+        (client) => client._id.toString() === clientId
+      );
       res.json(client);
     } catch (e) {
       console.log(e.message);
@@ -76,7 +77,7 @@ class clientController {
 
     const client = await ClientModel.findByIdAndDelete(clientId);
     if (!client) {
-      return res.status(404).json('Потребитель не найден')
+      return res.status(404).json("Потребитель не найден");
     }
     const user = await UserModel.findById(userId);
     const newClientList = user.clients.filter(
