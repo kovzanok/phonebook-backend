@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const Client = new Schema({
+const ClientSchema = new Schema({
   name: { type: String, required: true },
   substations: [{ name: { type: String, required: true }, info: String }],
   people: [
@@ -21,4 +21,4 @@ const Client = new Schema({
   ],
 });
 
-module.exports = model("Client", Client);
+module.exports = model("Client", ClientSchema);
