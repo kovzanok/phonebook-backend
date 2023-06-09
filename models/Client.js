@@ -7,16 +7,16 @@ const ClientSchema = new Schema({
     {
       name: { type: String, required: true },
       position: { type: String, required: true },
-      phones: [String],
-      email: [String],
+      phones: [{ value: String }],
+      email: [{ value: String }],
       info: String,
     },
   ],
   contacts: [
     {
       name: { type: String, required: true },
-      phones: [String],
-      email: [String],
+      phones: [{ value: String }],
+      email: [{ value: String }],
     },
   ],
 });
