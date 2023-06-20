@@ -1,5 +1,6 @@
 const UserModel = require("../models/User.js");
 const ClientModel = require("../models/Client.js");
+const { omitId } = require("../utils/utils.js");
 
 class clientController {
   async getClients(req, res) {
@@ -31,11 +32,12 @@ class clientController {
     try {
       const userId = req.userId;
 
+      const editedBody = omitId(req.body);
       const doc = new ClientModel({
-        name: req.body.name,
-        substations: req.body.substations,
-        people: req.body.people,
-        contacts: req.body.contacts,
+        name: editedBody.name,
+        substations: editedBody.substations,
+        people: editedBody.people,
+        contacts: editedBody.contacts,
       });
 
       const client = await doc.save();
