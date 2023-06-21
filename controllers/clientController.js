@@ -1,12 +1,18 @@
 const UserModel = require("../models/User.js");
 const ClientModel = require("../models/Client.js");
-const { omitId } = require("../utils/utils.js");
+const { omitId, filterClientsBySearchString } = require("../utils/utils.js");
 
 class clientController {
   async getClients(req, res) {
+    const search = req.query.search;
     const id = req.userId;
     const user = await UserModel.findById(id).populate("clients").exec();
-    res.json(user.clients);
+    if (search) {
+      const searchedClients = filterClientsBySearchString(user.clients, search);
+      res.json(searchedClients);
+    } else {
+      res.json(user.clients);
+    }
   }
 
   async getClient(req, res) {
