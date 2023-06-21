@@ -55,13 +55,14 @@ class clientController {
     try {
       const clientId = req.params.id;
 
+      const newClientObj = omitId(req.body);
       const client = await ClientModel.findOneAndReplace(
         { _id: clientId },
         {
-          name: req.body.name,
-          substations: req.body.substations,
-          people: req.body.people,
-          contacts: req.body.contacts,
+          name: newClientObj.name,
+          substations: newClientObj.substations,
+          people: newClientObj.people,
+          contacts: newClientObj.contacts,
         },
         {
           returnDocument: "after",
