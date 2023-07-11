@@ -1,5 +1,5 @@
 const omitId = (obj) => {
-  const copyObj = structuredClone(obj);
+  const copyObj = JSON.parse(JSON.stringify(obj));
   deleteIdFromObj(copyObj);
   return copyObj;
 };
