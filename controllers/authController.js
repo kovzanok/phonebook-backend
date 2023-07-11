@@ -2,10 +2,11 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
+require('dotenv').config();
 
 const genrateAccessToken = (id) => {
   const payload = { id };
-  return jwt.sign(payload, "secret123", { expiresIn: "24h" });
+  return jwt.sign(payload, process.env.SECRET, { expiresIn: "24h" });
 };
 
 class authController {

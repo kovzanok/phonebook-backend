@@ -3,20 +3,20 @@ const mongoose = require('mongoose');
 const authRouter = require("./routers/authRouter.js");
 const clientsRouter = require("./routers/clientsRouter.js");
 const cors = require("cors");
-
-const PORT = 3000;
-
+require('dotenv').config();
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use("/auth", authRouter);
 app.use("/clients", clientsRouter);
+
+const PORT = process.env.PORT || 3000;
 const start = () => {
   try {
     app.listen(PORT, async () => {
       await mongoose.connect(
-        "mongodb+srv://phonebookuser:phonebookpassword@cluster0.eqsxfo6.mongodb.net/phonebook?retryWrites=true&w=majority"
+        process.env.DB_URL
       );
       console.log(`Server is running on port ${PORT}`);
     });
