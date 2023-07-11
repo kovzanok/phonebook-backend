@@ -1,4 +1,5 @@
 ## Technology Stack
+ - NodeJS
  - Express
  - Mongoose
  - JWT
